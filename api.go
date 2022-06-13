@@ -59,3 +59,41 @@ type Connector struct {
 	// -- children connections ---------------------------------------------------
 	ProcessorIds []string `protobuf:"bytes,8,rep,name=processor_ids,json=processorIds,proto3" json:"processor_ids,omitempty"`
 }
+
+// Type shows the processor type.
+type Processor_Type int32
+
+const (
+	Processor_TYPE_UNSPECIFIED Processor_Type = 0
+	// Processor is a transform.
+	Processor_TYPE_TRANSFORM Processor_Type = 1
+	// Processor is a filter.
+	Processor_TYPE_FILTER Processor_Type = 2
+)
+
+// Type shows the processor's parent type.
+type Processor_Parent_Type int32
+
+const (
+	Processor_Parent_TYPE_UNSPECIFIED Processor_Parent_Type = 0
+	// Processor parent is a connector.
+	Processor_Parent_TYPE_CONNECTOR Processor_Parent_Type = 1
+	// Processor parent is a pipeline.
+	Processor_Parent_TYPE_PIPELINE Processor_Parent_Type = 2
+)
+
+type Processor_Parent struct {
+	Type Processor_Parent_Type `protobuf:"varint,1,opt,name=type,proto3,enum=api.v1.Processor_Parent_Type" json:"type,omitempty"`
+	Id   string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+type Processor_Config struct {
+	Settings map[string]string `protobuf:"bytes,1,rep,name=settings,proto3" json:"settings,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+}
+
+type CreateProcessorRequest struct {
+	Name   string            `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Type   Processor_Type    `protobuf:"varint,2,opt,name=type,proto3,enum=api.v1.Processor_Type" json:"type,omitempty"`
+	Parent *Processor_Parent `protobuf:"bytes,3,opt,name=parent,proto3" json:"parent,omitempty"`
+	Config *Processor_Config `protobuf:"bytes,4,opt,name=config,proto3" json:"config,omitempty"`
+}
