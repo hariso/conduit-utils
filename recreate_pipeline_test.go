@@ -34,19 +34,26 @@ func toString(schema Schema) string {
 }
 
 var (
+	fileDestDir = "/home/haris/projects/other/conduit-utils"
+	// fileDestDir = "/home/haris/projects/conduitio/conduit"
+
 	serverCerPem = "Bag Attributes\n    friendlyName: caroot\n    2.16.840.1.113894.746875.1.1: <Unsupported tag 6>\nsubject=/CN=localhost/OU=CIA/O=REA/L=Melbourne/C=AU\nissuer=/CN=localhost/OU=CIA/O=REA/L=Melbourne/C=AU\n-----BEGIN CERTIFICATE-----\nMIIDHjCCAgYCCQC9iilqJUAoxzANBgkqhkiG9w0BAQsFADBRMRIwEAYDVQQDDAls\nb2NhbGhvc3QxDDAKBgNVBAsMA0NJQTEMMAoGA1UECgwDUkVBMRIwEAYDVQQHDAlN\nZWxib3VybmUxCzAJBgNVBAYTAkFVMB4XDTIyMDMyMTEyNDcyNloXDTQ5MDgwNTEy\nNDcyNlowUTESMBAGA1UEAwwJbG9jYWxob3N0MQwwCgYDVQQLDANDSUExDDAKBgNV\nBAoMA1JFQTESMBAGA1UEBwwJTWVsYm91cm5lMQswCQYDVQQGEwJBVTCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK8eUXQWIEvqH6gWg9CyU1FZ9I5ZfeSz\n5BgEwQelG3YRiBmN4MXQmVErvy8JEdC9AbDdNvwsWlBD1xoWC0S2Q2qMhF6M03ny\nrrx0OwKNxdNwZvrMCin6adVS66x4R83X/YprZiS0fMtZHnrPsEVZxw7QSObGPnUV\nqinVqZh4Mo2N7tbxYa6ZALXgDf0yXbzGOGENuEaw9+5H01+6wDAwoxmm3pgQ0bF1\nyrqGh6P5ePtbaI6C+WBW/u0HgXUgyJaQA3vZIS6cOnwf76osPkFiCp5LtjTWblBd\nBwEmjtMu4n6/QEsUNM93lP/iJ7y8LWGrMFxL1700KFWlkJ8CIbpdjH0CAwEAATAN\nBgkqhkiG9w0BAQsFAAOCAQEAAJXIy4onOdKSceG3gjJHjCIZf74/Ka7rIhCnVyn1\n/EiTub70Df1b2vsPl25axv3ujMETubUzSzyyRSQ/5o61T5nZXPmmbTtU/7f1lLWk\n6tiHyKRCPd6InLnGFqhjmKp052LCwX0ZqUy2x+/uXxrYI7+wcB9QpDQsw4nnfDhb\nkym8hzUIu6IST1TbHFD7NoTA1L/qVlVQ8Sj6XVGQKmwBPxX/i1wHFTDrnS4uskvK\nFkPUsd6OmYbguwS3Ktj40C/pV3Z5OS/kR4+pO349I+b42ImzWxpgMRSVuI4y0Lvk\nm6GdbnJPvzqZT5yZmv05j6LQXkm5ugqPmOARMKrSrWACUA==\n-----END CERTIFICATE-----\n"
 	clientKeyPem = "Bag Attributes\n    friendlyName: broker\n    localKeyID: 54 69 6D 65 20 31 36 34 37 38 36 37 32 30 38 36 35 35 \nKey Attributes: <No Attributes>\n-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCQTuVvpsn8Eu3b\nerPVw576+bifl9QJTtDdaYHeywDRmrp3XO7VUOsRf6Wacm+4+2Uvbi0NVrhWbLwe\n7/jNoOhgDXCS85A6FnZU+LBfwJBLBJjPFZ654rFMjz+kmuHf2b5J7LkqXAuSTAFe\nW11EiMchiREg9inhoxwGt2qviEUYabZLJR31pr2qd7jGiLK9EPY3y8UaW/15HUXq\nQhWVntAQPFTtitnue7fet4OwcY8nCkJ5yOnxRznX78k877ycfgKLJwHkETwHWp2x\nXwJyTz0mJ0nhbYadacGHieKgqu1zUC9f7Tz4AUOB+coEALqKnRPz9nKmT4lUQwD+\nzOr7tmMxAgMBAAECggEAabZyGuV6577SIcr0PG8OYlpXJgoqGRt0pA3rRlM96U5I\ntLIOf5PEb9Ard0XHlCINUL6MIE5bwWvsL1mp0LDEKcEOq4fjKrpTuxFm2u4Mhff7\nHRCAczmemjAB9kpDlyFCZZMVXfOJwoUNJ5sUauUrwuRO+O97ZMCBAmaQr7/KpgOI\n6OxPYv0WE6uqaijFWp7HnXc5Xcw0zo5riEh+5ZxjaehJFWoFpOKpOgL+pkMqfAZb\nVGTY8BxRJA11nR/Do34kz8WahX6Us3DCMpMMWJcg8ss80JRFyj30o683tOfBeTdP\nHVJrRz1GdW7wHnGR94D/a3TuUISJ1U++GUMdXmQNFQKBgQDHrgG2wwzGQ8Uv+cWD\nLj02flAA6Xrln4JQpelrQZrrYcYbPevTordeeXnY+COtGF04ix5dQWsWAgYlRSnr\n1s56en+RsnhvNggoHz48nPXNwbp/XZx1or8fJUMwLicwosFtLF7DxLMF4tq1pdkX\nZrr9UJO7LtirgAOqiZzNsd9xOwKBgQC5AsFh7CHSwNo/x6G6XJ9c4hL0dYeuxbbo\n4a08NageTRWXxBdpkYn4YBrLk49jA3JnDrfJuJfJ7jQdGBLwNdTFWZp+wB/QT2su\nkE2Ur+ysid95xLM1aCw17RfzpSXhkhMUJTRSYgIyqkkClRnRqhUKDowyt0AfdzCW\nGAPTdac2gwKBgCquDr+5wSk/ow42HPmFEKBtLzyCqzoZdgk27UV3qF1XcLix6444\n4WjYHis6HqYI5yQG2F6mdPUnSZj9x5AZQdj8BfhmZUegDO5Gf08FXaS1G9/Nanva\nZW+Kz2mk88t5fk6PhVHi4UEI1CavZE+ULbOnXWxM/xLpMd9pupJcyp2xAoGALs+Z\nqnMao76T+itCqmqhD9lLvnq2V+xCuW3QbTmOTgxm+D1vRxDB/gwi+3tcfkry+Uxq\nCCoijb8thGcA87JLIZvoUUW/Ru+xSNjOKF7S3V0NJDw2s76l4QcaVlVk3kwdc61u\nLaIKuFMJohOjsr78D81af8KKAOwhaPiujyRnqI0CgYAmyjg1o85Od/Q0MwM2zQ9w\ng14mYRjaLCvvYdCe62tw9B8JTfO5n6kIFokCUJY6lsZbjE4su2sES5VftoizUk2p\njGoznm1taoeEby59583cf79ijBWj+gt8KZl3KvM1vjN55lZ4mUS8yIDzzlShoXOf\nexA8AP+RDi6/PwW4SYQpmg==\n-----END PRIVATE KEY-----\n"
 	clientCerPem = "Bag Attributes\n    friendlyName: broker\n    localKeyID: 54 69 6D 65 20 31 36 34 37 38 36 37 32 30 38 36 35 35 \nsubject=/C=AU/ST=VIC/L=Melbourne/O=REA/OU=CIA/CN=localhost\nissuer=/CN=localhost/OU=CIA/O=REA/L=Melbourne/C=AU\n-----BEGIN CERTIFICATE-----\nMIIDLDCCAhQCCQCGHfkQtzwLDTANBgkqhkiG9w0BAQUFADBRMRIwEAYDVQQDDAls\nb2NhbGhvc3QxDDAKBgNVBAsMA0NJQTEMMAoGA1UECgwDUkVBMRIwEAYDVQQHDAlN\nZWxib3VybmUxCzAJBgNVBAYTAkFVMB4XDTIyMDMyMTEyNDcyN1oXDTQ5MDgwNTEy\nNDcyN1owXzELMAkGA1UEBhMCQVUxDDAKBgNVBAgTA1ZJQzESMBAGA1UEBxMJTWVs\nYm91cm5lMQwwCgYDVQQKEwNSRUExDDAKBgNVBAsTA0NJQTESMBAGA1UEAxMJbG9j\nYWxob3N0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkE7lb6bJ/BLt\n23qz1cOe+vm4n5fUCU7Q3WmB3ssA0Zq6d1zu1VDrEX+lmnJvuPtlL24tDVa4Vmy8\nHu/4zaDoYA1wkvOQOhZ2VPiwX8CQSwSYzxWeueKxTI8/pJrh39m+Sey5KlwLkkwB\nXltdRIjHIYkRIPYp4aMcBrdqr4hFGGm2SyUd9aa9qne4xoiyvRD2N8vFGlv9eR1F\n6kIVlZ7QEDxU7YrZ7nu33reDsHGPJwpCecjp8Uc51+/JPO+8nH4CiycB5BE8B1qd\nsV8Cck89JidJ4W2GnWnBh4nioKrtc1AvX+08+AFDgfnKBAC6ip0T8/Zypk+JVEMA\n/szq+7ZjMQIDAQABMA0GCSqGSIb3DQEBBQUAA4IBAQAh1sobuLh1uN6qZJOvV6vS\nG2a182VhX0ktBxXTZyXshSKa0lT93vtPgMEz/xRQ3H6ZVdEh6+GbY7jLIYjiqFhm\neuDnb6A+SP1VdosSPY6pg9tNWVIcrVTeUltrbJGYp7HTyaAvgqc5fzinhEmvbwxr\n/A3LBUjr/WrwzTCq/lwhQwjE61EET9SV/fzcF+I8I8SF5uVwHEnlyV9FaFYg36Ba\nZBt3Mfvf1Ai477N3npv7j9OoenCTxuIr0jrQJ7QT1pq1wEjckSAbuzpqqg0TXy1l\nXBkCk5xXHRriCnPBtL6VMlnLwpxap1nOTHWkp70z8HerW44+GfnoMI67G5Q16GBX\n-----END CERTIFICATE-----\nBag Attributes\n    friendlyName: C=AU,L=Melbourne,O=REA,OU=CIA,CN=localhost\nsubject=/CN=localhost/OU=CIA/O=REA/L=Melbourne/C=AU\nissuer=/CN=localhost/OU=CIA/O=REA/L=Melbourne/C=AU\n-----BEGIN CERTIFICATE-----\nMIIDHjCCAgYCCQC9iilqJUAoxzANBgkqhkiG9w0BAQsFADBRMRIwEAYDVQQDDAls\nb2NhbGhvc3QxDDAKBgNVBAsMA0NJQTEMMAoGA1UECgwDUkVBMRIwEAYDVQQHDAlN\nZWxib3VybmUxCzAJBgNVBAYTAkFVMB4XDTIyMDMyMTEyNDcyNloXDTQ5MDgwNTEy\nNDcyNlowUTESMBAGA1UEAwwJbG9jYWxob3N0MQwwCgYDVQQLDANDSUExDDAKBgNV\nBAoMA1JFQTESMBAGA1UEBwwJTWVsYm91cm5lMQswCQYDVQQGEwJBVTCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK8eUXQWIEvqH6gWg9CyU1FZ9I5ZfeSz\n5BgEwQelG3YRiBmN4MXQmVErvy8JEdC9AbDdNvwsWlBD1xoWC0S2Q2qMhF6M03ny\nrrx0OwKNxdNwZvrMCin6adVS66x4R83X/YprZiS0fMtZHnrPsEVZxw7QSObGPnUV\nqinVqZh4Mo2N7tbxYa6ZALXgDf0yXbzGOGENuEaw9+5H01+6wDAwoxmm3pgQ0bF1\nyrqGh6P5ePtbaI6C+WBW/u0HgXUgyJaQA3vZIS6cOnwf76osPkFiCp5LtjTWblBd\nBwEmjtMu4n6/QEsUNM93lP/iJ7y8LWGrMFxL1700KFWlkJ8CIbpdjH0CAwEAATAN\nBgkqhkiG9w0BAQsFAAOCAQEAAJXIy4onOdKSceG3gjJHjCIZf74/Ka7rIhCnVyn1\n/EiTub70Df1b2vsPl25axv3ujMETubUzSzyyRSQ/5o61T5nZXPmmbTtU/7f1lLWk\n6tiHyKRCPd6InLnGFqhjmKp052LCwX0ZqUy2x+/uXxrYI7+wcB9QpDQsw4nnfDhb\nkym8hzUIu6IST1TbHFD7NoTA1L/qVlVQ8Sj6XVGQKmwBPxX/i1wHFTDrnS4uskvK\nFkPUsd6OmYbguwS3Ktj40C/pV3Z5OS/kR4+pO349I+b42ImzWxpgMRSVuI4y0Lvk\nm6GdbnJPvzqZT5yZmv05j6LQXkm5ugqPmOARMKrSrWACUA==\n-----END CERTIFICATE-----\nBag Attributes\n    friendlyName: caroot\n    2.16.840.1.113894.746875.1.1: <Unsupported tag 6>\nsubject=/CN=localhost/OU=CIA/O=REA/L=Melbourne/C=AU\nissuer=/CN=localhost/OU=CIA/O=REA/L=Melbourne/C=AU\n-----BEGIN CERTIFICATE-----\nMIIDHjCCAgYCCQC9iilqJUAoxzANBgkqhkiG9w0BAQsFADBRMRIwEAYDVQQDDAls\nb2NhbGhvc3QxDDAKBgNVBAsMA0NJQTEMMAoGA1UECgwDUkVBMRIwEAYDVQQHDAlN\nZWxib3VybmUxCzAJBgNVBAYTAkFVMB4XDTIyMDMyMTEyNDcyNloXDTQ5MDgwNTEy\nNDcyNlowUTESMBAGA1UEAwwJbG9jYWxob3N0MQwwCgYDVQQLDANDSUExDDAKBgNV\nBAoMA1JFQTESMBAGA1UEBwwJTWVsYm91cm5lMQswCQYDVQQGEwJBVTCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK8eUXQWIEvqH6gWg9CyU1FZ9I5ZfeSz\n5BgEwQelG3YRiBmN4MXQmVErvy8JEdC9AbDdNvwsWlBD1xoWC0S2Q2qMhF6M03ny\nrrx0OwKNxdNwZvrMCin6adVS66x4R83X/YprZiS0fMtZHnrPsEVZxw7QSObGPnUV\nqinVqZh4Mo2N7tbxYa6ZALXgDf0yXbzGOGENuEaw9+5H01+6wDAwoxmm3pgQ0bF1\nyrqGh6P5ePtbaI6C+WBW/u0HgXUgyJaQA3vZIS6cOnwf76osPkFiCp5LtjTWblBd\nBwEmjtMu4n6/QEsUNM93lP/iJ7y8LWGrMFxL1700KFWlkJ8CIbpdjH0CAwEAATAN\nBgkqhkiG9w0BAQsFAAOCAQEAAJXIy4onOdKSceG3gjJHjCIZf74/Ka7rIhCnVyn1\n/EiTub70Df1b2vsPl25axv3ujMETubUzSzyyRSQ/5o61T5nZXPmmbTtU/7f1lLWk\n6tiHyKRCPd6InLnGFqhjmKp052LCwX0ZqUy2x+/uXxrYI7+wcB9QpDQsw4nnfDhb\nkym8hzUIu6IST1TbHFD7NoTA1L/qVlVQ8Sj6XVGQKmwBPxX/i1wHFTDrnS4uskvK\nFkPUsd6OmYbguwS3Ktj40C/pV3Z5OS/kR4+pO349I+b42ImzWxpgMRSVuI4y0Lvk\nm6GdbnJPvzqZT5yZmv05j6LQXkm5ugqPmOARMKrSrWACUA==\n-----END CERTIFICATE-----\n"
 
-	generatorPlugin      = "builtin:generator"
-	kafkaConnectorPlugin = "/home/haris/projects/conduitio/conduit-kafka-connect-wrapper/dist/conduit-kafka-connect-wrapper"
-	kcSourceDebug        = "/home/haris/projects/personal/conduit-utils/kafka-connect-grpc-source.sh"
-	kcDestinationDebug   = "/home/haris/projects/personal/conduit-utils/kafka-connect-grpc-destination.sh"
-	filePlugin           = "builtin:file"
-	kafkaPluginOld       = "pkg/plugins/kafka/kafka"
-	kafkaPlugin          = "/home/haris/projects/conduitio/conduit-connector-kafka/conduit-connector-kafka"
-	kafkaPluginBuiltin   = "builtin:kafka"
-	pgPlugin             = "builtin:postgres"
+	generatorPlugin           = "builtin:generator"
+	generatorPluginStandalone = "/home/haris/projects/conduitio/conduit-connector-generator/conduit-connector-generator"
+	kafkaConnectorPlugin      = "/home/haris/projects/conduitio/conduit-kafka-connect-wrapper/dist/conduit-kafka-connect-wrapper"
+	kcSourceDebug             = "/home/haris/projects/personal/conduit-utils/kafka-connect-grpc-source.sh"
+	kcDestinationDebug        = "/home/haris/projects/personal/conduit-utils/kafka-connect-grpc-destination.sh"
+	filePlugin                = "builtin:file"
+	fileStandalone            = "/home/haris/projects/conduitio/conduit-connector-file/conduit-connector-file"
+	s3Plugin                  = "builtin:s3"
+	kafkaPluginOld            = "pkg/plugins/kafka/kafka"
+	kafkaPlugin               = "/home/haris/projects/conduitio/conduit-connector-kafka/conduit-connector-kafka"
+	kafkaPluginBuiltin        = "builtin:kafka"
+	pgPlugin                  = "builtin:postgres"
+	noopDestPlugin            = "/home/haris/Desktop/conduit-connector-noop-dest"
 
 	customersSchema = toString(Schema{
 		Type: "struct",
@@ -154,20 +161,31 @@ func TestRecreatePipeline(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	connectorId, err := createGeneratorSource("structured", client, pipelineId)
+	_, err = createS3Source(client, pipelineId)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	_, err = createTransformation("structured", connectorId, pipelineId, client)
+	_, err = createFileDestination(client, pipelineId, "")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	_, err = createFileDestination(client, pipelineId)
-	if err != nil {
-		t.Fatal(err)
-	}
+	//destFiltered, err := createFileDestination(client, pipelineId, "-filtered")
+	//if err != nil {
+	//	t.Fatal(err)
+	//}
+	//
+	//if true {
+	//	_, err = createFilter(destFiltered, client)
+	//	if err != nil {
+	//		t.Fatal(err)
+	//	}
+	//	_, err := createTransformation_extractfieldpayload(destFiltered, client)
+	//	if err != nil {
+	//		t.Fatal(err)
+	//	}
+	//}
 
 	err = startPipeline(client, pipelineId)
 	if err != nil {
@@ -175,7 +193,51 @@ func TestRecreatePipeline(t *testing.T) {
 	}
 }
 
-func createTransformation(transformType string, connectorId string, pipelineId string, client *http.Client) (string, error) {
+func createS3Source(client *http.Client, pipelineId string) (string, error) {
+	fmt.Println("createS3Source")
+
+	req := CreateConnectorRequest{
+		PipelineId: pipelineId,
+		Plugin:     filePlugin,
+		Type:       Connector_TYPE_SOURCE,
+		Config: &Connector_Config{
+			Name: "my-s3-source",
+			Settings: map[string]string{
+				"aws.accessKeyId":     s3AccessKey,
+				"aws.secretAccessKey": s3SecretKey,
+				"aws.region":          "us-east-1",
+				"aws.bucket":          s3Bucket,
+			},
+		},
+	}
+
+	return createConnector(client, req)
+}
+
+func createTransformation_extractfieldpayload(connectorID string, client *http.Client) (string, error) {
+	fmt.Println("createTransformationStructured")
+
+	req := CreateProcessorRequest{
+		Name: "extractfieldpayload",
+		Parent: &Processor_Parent{
+			Type: Processor_Parent_TYPE_CONNECTOR,
+			Id:   connectorID,
+		},
+		Config: &Processor_Config{
+			Settings: map[string]string{
+				"field": "name",
+			},
+		},
+	}
+
+	_, err := createTransformationHTTP(client, req)
+	if err != nil {
+		return "", err
+	}
+	return "", nil
+}
+
+func createPipelineTransformation(transformType string, pipelineId string, client *http.Client) (string, error) {
 	fmt.Println("createTransformationStructured")
 
 	dat, err := os.ReadFile(fmt.Sprintf("/home/haris/projects/other/conduit-utils/transform-%s.js", transformType))
@@ -183,6 +245,63 @@ func createTransformation(transformType string, connectorId string, pipelineId s
 	req := CreateProcessorRequest{
 		Name: "js",
 		Type: Processor_TYPE_TRANSFORM,
+		Parent: &Processor_Parent{
+			Type: Processor_Parent_TYPE_PIPELINE,
+			Id:   pipelineId,
+		},
+		Config: &Processor_Config{
+			Settings: map[string]string{
+				"script": string(dat),
+			},
+		},
+	}
+
+	_, err = createTransformationHTTP(client, req)
+	if err != nil {
+		return "", err
+	}
+	return "", nil
+}
+
+func createFilter(pipelineId string, client *http.Client) (string, error) {
+	fmt.Println("createFilter")
+
+	req := CreateProcessorRequest{
+		Name: "js",
+		Parent: &Processor_Parent{
+			Type: Processor_Parent_TYPE_CONNECTOR,
+			Id:   pipelineId,
+		},
+		Config: &Processor_Config{
+			Settings: map[string]string{
+				"script": `function process(record) {
+					var json = JSON.parse(String.fromCharCode.apply(String, record.Payload.Bytes()))
+					logger.Info().Msgf("trial: %v", json["trial"])
+					if (json["trial"]) {
+						return null;
+					} else {
+						return record
+					}
+				}`,
+			},
+		},
+	}
+
+	_, err := createTransformationHTTP(client, req)
+	if err != nil {
+		return "", err
+	}
+	return "", nil
+}
+
+func createConnectorTransformation(transformType string, connectorId string, client *http.Client) (string, error) {
+	fmt.Printf("createConnectorTransformation: %v\n", transformType)
+	fmt.Println("----------")
+
+	dat, err := os.ReadFile(fmt.Sprintf("/home/haris/projects/other/conduit-utils/transform-%s.js", transformType))
+
+	req := CreateProcessorRequest{
+		Name: "js",
 		Parent: &Processor_Parent{
 			Type: Processor_Parent_TYPE_CONNECTOR,
 			Id:   connectorId,
@@ -308,20 +427,69 @@ func createGeneratorSource(dataType string, client *http.Client, pipelineId stri
 	fmt.Println("createGeneratorSource")
 	req := CreateConnectorRequest{
 		PipelineId: pipelineId,
-		Plugin:     generatorPlugin,
+		Plugin:     generatorPluginStandalone,
 		Type:       Connector_TYPE_SOURCE,
 		Config: &Connector_Config{
 			Name: "my-generator-source",
 			Settings: map[string]string{
-				"recordCount": "1",
-				"readTime":    "500ms",
-				"fields":      "id:int,name:string,trial:bool",
+				"recordCount": "-1",
+				"readTime":    "100ms",
+				"fields":      "id:int,name:string,company:string,trial:bool",
 				"format":      dataType,
 			},
 		},
 	}
 
 	return createConnector(client, req)
+}
+
+func createGeneratorSourceSleeper(dataType string, client *http.Client, pipelineId string) (string, error) {
+	fmt.Println("createGeneratorSourceSleeper")
+	req := CreateConnectorRequest{
+		PipelineId: pipelineId,
+		Plugin:     generatorPluginStandalone,
+		Type:       Connector_TYPE_SOURCE,
+		Config: &Connector_Config{
+			Name: "my-generator-source",
+			Settings: map[string]string{
+				"recordCount":  "-1",
+				"readTime":     "250ms",
+				"sleepTime":    "5s",
+				"generateTime": "5s",
+				"fields":       "id:int,name:string,company:string,trial:bool",
+				"format":       dataType,
+			},
+		},
+	}
+
+	return createConnector(client, req)
+}
+
+func createGeneratorSourcePayload(client *http.Client, pipelineId string) (string, error) {
+	fmt.Println("createGeneratorSource")
+	req := CreateConnectorRequest{
+		PipelineId: pipelineId,
+		Plugin:     generatorPluginStandalone,
+		Type:       Connector_TYPE_SOURCE,
+		Config: &Connector_Config{
+			Name: "my-generator-source",
+			Settings: map[string]string{
+				"recordCount":    "15",
+				"readTime":       "100ms",
+				"format.type":    "file",
+				"format.options": "/home/haris/projects/other/conduit-utils/generator.txt",
+			},
+		},
+	}
+
+	return createConnector(client, req)
+}
+
+func TestReadFile(t *testing.T) {
+	_, err := ioutil.ReadFile("")
+	if err != nil {
+		t.Fatal(err)
+	}
 }
 
 func stopPipeline(client *http.Client, pipelineId string) error {
@@ -702,18 +870,34 @@ func createFileSource(client *http.Client, pipelineId string) (string, error) {
 	return createConnector(client, req)
 }
 
-func createFileDestination(client *http.Client, pipelineId string) (string, error) {
+func createFileDestination(client *http.Client, pipelineId string, suffix string) (string, error) {
 	fmt.Println("createFileDestination")
 
 	req := CreateConnectorRequest{
 		PipelineId: pipelineId,
-		Plugin:     filePlugin,
+		Plugin:     fileStandalone,
 		Type:       Connector_TYPE_DESTINATION,
 		Config: &Connector_Config{
 			Name: "my-file-destination",
 			Settings: map[string]string{
-				"path": "/home/haris/projects/other/conduit-utils/file-destination.txt",
+				"path": fmt.Sprintf("%v/file-destination%v.txt", fileDestDir, suffix),
 			},
+		},
+	}
+
+	return createConnector(client, req)
+}
+
+func createNoopDestination(client *http.Client, pipelineId string) (string, error) {
+	fmt.Println("createNoopDestination")
+
+	req := CreateConnectorRequest{
+		PipelineId: pipelineId,
+		Plugin:     noopDestPlugin,
+		Type:       Connector_TYPE_DESTINATION,
+		Config: &Connector_Config{
+			Name:     "my-noop-destination",
+			Settings: map[string]string{},
 		},
 	}
 
@@ -855,6 +1039,8 @@ func createKafkaSource_SASL_SCRAM(client *http.Client, pipelineId string) (strin
 
 func createPipeline(client *http.Client) (string, error) {
 	fmt.Println("creating pipeline")
+	fmt.Println("----------")
+
 	pipelineCreateUrl := "http://localhost:8080/v1/pipelines"
 
 	reqBody := CreatePipelineRequest{
@@ -873,11 +1059,12 @@ func createPipeline(client *http.Client) (string, error) {
 }
 
 func post(client *http.Client, url string, reqBody interface{}, parseInto interface{}) error {
-	jsonBytes, err := json.Marshal(reqBody)
+	jsonBytes, err := json.MarshalIndent(reqBody, "", "  ")
 	if err != nil {
 		return err
 	}
-	fmt.Println(string(jsonBytes))
+	fmt.Printf("curl -X POST '%v' -d '%v'\n", url, string(jsonBytes))
+
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonBytes))
 	if err != nil {
 		return err
@@ -887,6 +1074,7 @@ func post(client *http.Client, url string, reqBody interface{}, parseInto interf
 	if err != nil {
 		panic(err)
 	}
+
 	if resp.StatusCode != 200 {
 		return fmt.Errorf("got status code %v", resp.StatusCode)
 	}
@@ -896,6 +1084,7 @@ func post(client *http.Client, url string, reqBody interface{}, parseInto interf
 	if err != nil {
 		return err
 	}
+
 	err = json.Unmarshal(respBytes, &parseInto)
 	if err != nil {
 		return err

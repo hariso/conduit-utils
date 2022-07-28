@@ -72,19 +72,19 @@ const (
 )
 
 // Type shows the processor's parent type.
-type Processor_Parent_Type int32
+type Processor_Parent_Type string
 
 const (
-	Processor_Parent_TYPE_UNSPECIFIED Processor_Parent_Type = 0
+	Processor_Parent_TYPE_UNSPECIFIED string = ""
 	// Processor parent is a connector.
-	Processor_Parent_TYPE_CONNECTOR Processor_Parent_Type = 1
+	Processor_Parent_TYPE_CONNECTOR string = "TYPE_CONNECTOR"
 	// Processor parent is a pipeline.
-	Processor_Parent_TYPE_PIPELINE Processor_Parent_Type = 2
+	Processor_Parent_TYPE_PIPELINE string = "TYPE_PIPELINE"
 )
 
 type Processor_Parent struct {
-	Type Processor_Parent_Type `protobuf:"varint,1,opt,name=type,proto3,enum=api.v1.Processor_Parent_Type" json:"type,omitempty"`
-	Id   string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Type string `protobuf:"varint,1,opt,name=type,proto3,enum=api.v1.Processor_Parent_Type" json:"type,omitempty"`
+	Id   string `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 type Processor_Config struct {
